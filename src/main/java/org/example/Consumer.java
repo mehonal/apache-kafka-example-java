@@ -5,6 +5,9 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -28,15 +31,20 @@ public class Consumer {
 
         try (KafkaConsumer<String, String> consumer = new KafkaConsumer<>(settings)) {
 
-            consumer.subscribe(Collections.singletonList("hello-world-topic"));
+            consumer.subscribe(Collections.singletonList("students"));
 
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-
+                ObjectMapper om = new ObjectMapper();
                 for (ConsumerRecord<String, String> record : records) {
-                    System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
+                    Student incomingStudent = om.readValue(record.value(), Student.class);
+                    System.out.println(incomingStudent);
                 }
             }
+        } catch (JsonMappingException e) {
+            throw new RuntimeException(e);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 }
