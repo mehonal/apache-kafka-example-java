@@ -100,6 +100,10 @@ http://localhost:9021
 
 Note: You must be sending events after having the Messages tab open in the topic.
 
+![Control Center Topic](https://raw.githubusercontent.com/mehonal/apache-kafka-example-java/refs/heads/master/src/main/resources/screenshots/control-center-topic.png)
+![Control Center Messages](https://raw.githubusercontent.com/mehonal/apache-kafka-example-java/refs/heads/master/src/main/resources/screenshots/control-center-messages.png)
+
+
 # Useful Resources 
 - [Confluent Platform Docker Compose](https://github.com/confluentinc/cp-all-in-one/blob/7.7.1-post/cp-all-in-one-kraft/docker-compose.yml)
 - [Chris Searle's Kafka Java to Scala Examples](https://github.com/chrissearle/kafka-java-to-scala/blob/master/java-starter)
